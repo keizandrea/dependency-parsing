@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UD Indonesia | Active–Passive Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="eyebrow">MINI ASSIGNMENT · UNIVERSAL DEPENDENCIES v2</div>
+      <h1>Dari <em>membaca</em> ke <em>dibaca</em></h1>
+      <p>Jelajahi bagaimana <strong>dependency relations</strong> berubah ketika kalimat Bahasa Indonesia menjadi <strong>passive voice</strong>.</p>
+    </header>
+
+    <section class="controls panel" aria-label="Kontrol visualisasi">
+      <div>
+        <label class="control-label" for="mode">Tampilan dependency tree</label>
+        <select id="mode">
+          <option value="bandingkan">Bandingkan keduanya</option>
+          <option value="aktif">Active voice saja</option>
+          <option value="pasif">Passive voice saja</option>
+        </select>
+      </div>
+      <label class="check"><input type="checkbox" id="showChanges" checked /> Sorot relation yang berubah</label>
+      <label class="check"><input type="checkbox" id="showPunct" /> Tampilkan punctuation</label>
+      <div class="legend" aria-label="Legenda semantic role manual">
+        <span><i class="dot agent"></i>Agent</span>
+        <span><i class="dot patient"></i>Patient</span>
+        <span><i class="dot location"></i>Location</span>
+      </div>
+    </section>
+
+    <p class="note"><strong>Catatan:</strong> Warna <em>Agent / Patient / Location</em> adalah layer penjelas yang ditambahkan secara manual. Itu bukan label <em>semantic role</em> dari UD.</p>
+
+    <section id="treeGrid" class="tree-grid" aria-live="polite"></section>
+
+    <section class="bottom-grid">
+      <article class="panel comparison">
+        <h2>Apa yang berubah?</h2>
+        <p>Bandingkan <strong>grammatical relation</strong> dari semantic role yang sama.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Semantic role (manual)</th><th>Active</th><th>Passive</th></tr></thead>
+          <tbody id="compareBody"></tbody>
+        </table></div>
+        <p class="insight" id="voiceComparison"></p>
+      </article>
+      <aside class="panel inspector">
+        <h2>Token inspector</h2>
+        <div id="inspectorContent" class="inspector-placeholder">Klik satu kata dalam dependency tree untuk melihat <code>ID</code>, <code>HEAD</code>, <code>DEPREL</code>, <code>UPOS</code>, dan <code>FEATS</code>.</div>
+      </aside>
+    </section>
+
+    <footer>
+      <p>Data: <code>data/contoh_kalimat.conllu</code> · Contoh anotasi ilustratif, bukan salinan Indonesian-GSD.</p>
+      <p>Bacaan: <a href="https://nlp.stanford.edu/~manning/papers/USD_LREC14_UD_revision.pdf" target="_blank" rel="noreferrer">de Marneffe et al. (UD paper)</a> · <a href="https://universaldependencies.org/treebanks/id_gsd/index.html" target="_blank" rel="noreferrer">UD Indonesian-GSD</a> · <a href="https://universaldependencies.org/format.html" target="_blank" rel="noreferrer">CoNLL-U format</a></p>
+    </footer>
+  </main>
+</body>
+</html>
