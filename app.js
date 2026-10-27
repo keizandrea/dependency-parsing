@@ -85,9 +85,15 @@ function renderTree(sentence, highlightChanges, showPunct) {
       class: changed ? "edge changed" : "edge",
       "marker-end": changed ? "url(#arrow-change)" : "url(#arrow)",
     });
+    const isCase = t.deprel === "case";
+    const labelClasses = [
+      "edge-label",
+      changed ? "changed" : "",
+      isCase ? "case-label" : "",
+    ].filter(Boolean).join(" ");
     const label = svgElement("text", {
       x: (x1 + x2) / 2, y: arcTop + 10, "text-anchor": "middle",
-      class: changed ? "edge-label changed" : "edge-label",
+      class: labelClasses,
     }, t.deprel);
     svg.append(path, label);
   }

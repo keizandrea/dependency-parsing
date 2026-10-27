@@ -50,6 +50,7 @@ select { background: #fff; color: var(--ink); border: 1px solid #c9d4e4; border-
 .edge.changed { stroke: var(--change); stroke-width: 2.8; }
 .edge-label { font-size: 18px; fill: #4d5b71; font-weight: 700; paint-order: stroke; stroke: #fff; stroke-width: 7; stroke-linejoin: round; }
 .edge-label.changed { fill: var(--change); }
+.edge-label.case-label { fill: #16835f; }
 .node-token { font-size: 20px; font-weight: 750; fill: #1f2c42; text-anchor: middle; }
 .node-pos { font-size: 13px; fill: #69768b; text-anchor: middle; }
 .root-text { font-size: 15px; font-weight: 750; fill: #375ba6; text-anchor: middle; }
