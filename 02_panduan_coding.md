@@ -229,14 +229,14 @@ Pemeriksaan ini memvalidasi **format dasar, jumlah root, HEAD yang merujuk token
 
 ## 11. Checklist sebelum mengumpulkan
 
-- [ ] Halaman berjalan melalui `http://localhost:8000/`.
-- [ ] Ada *dependency tree* untuk *active* dan *passive*.
-- [ ] Arah panah benar: *head → dependent*.
-- [ ] Perubahan `nsubj → obl:agent` dan `obj → nsubj:pass` terlihat.
-- [ ] `di`/`oleh` muncul sebagai `case`; `dibaca` muncul sebagai satu kata.
-- [ ] Kode sudah dimodifikasi minimal satu fitur tambahan.
-- [ ] Laporan membedakan *syntactic relations* dari *semantic roles*.
-- [ ] Laporan merujuk minimal satu bagian yang tepat dari paper.
+- [✔] Halaman berjalan melalui `http://localhost:8000/`.
+- [✔] Ada *dependency tree* untuk *active* dan *passive*.
+- [✔] Arah panah benar: *head → dependent*.
+- [✔] Perubahan `nsubj → obl:agent` dan `obj → nsubj:pass` terlihat.
+- [✔] `di`/`oleh` muncul sebagai `case`; `dibaca` muncul sebagai satu kata.
+- [✔] Kode sudah dimodifikasi minimal satu fitur tambahan.
+- [✔] Laporan membedakan *syntactic relations* dari *semantic roles*.
+- [✔] Laporan merujuk minimal satu bagian yang tepat dari paper.
 
 ## 12. Resources dan batasan
 

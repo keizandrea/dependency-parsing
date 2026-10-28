@@ -105,9 +105,18 @@ function renderTree(sentence, highlightChanges, showPunct) {
     }
     const role = SEMANTIC_ROLES[sentence.id]?.[t.id] || "";
     const width = Math.max(83, 18 + t.form.length * 13.2);
+    const isCaseMarker =
+      t.deprel === "case" &&
+      ["di", "oleh"].includes(t.form.toLowerCase());
     const g = svgElement("g", {
-      class: `node ${role ? "role-" + role : ""} ${t.head === 0 ? "is-root" : ""}`,
-      tabindex: "0", role: "button",
+      class: [
+        "node",
+        role ? `role-${role}` : "",
+        t.head === 0 ? "is-root" : "",
+        isCaseMarker ? "case-marker-node" : "",
+        ].filter(Boolean).join(" "),
+      tabindex: "0",
+      role: "button",
       "aria-label": `${t.form}, ${t.deprel}. Detail token`,
     });
     g.appendChild(svgElement("rect", {
@@ -151,6 +160,21 @@ function inspectToken(sentence, token, role) {
     dl.append(dt, dd);
   }
   target.append(title, dl);
+  const isCaseMarker =
+    token.deprel === "case" &&
+    ["di", "oleh"].includes(token.form.toLowerCase());
+  if (isCaseMarker) {
+    const explanation = document.createElement("p");
+    explanation.className = "case-explanation";
+    if (token.form.toLowerCase() === "di") {
+      explanation.textContent =
+        '"di" merupakan preposisi yang ditulis terpisah dan terhubung dengan kata yang diterangkannya melalui relasi case. Dalam frasa "di perpustakaan", kata "di" menandai lokasi.';
+    } else {
+      explanation.textContent =
+        '"oleh" merupakan preposisi yang terhubung dengan "Siti" melalui relasi case. Dalam kalimat pasif, kata "oleh" menandai pelaku tindakan.';
+    }
+    target.appendChild(explanation);
+  }
 }
 
 function createTreeCard(sentence, heading, highlightChanges, showPunct) {
