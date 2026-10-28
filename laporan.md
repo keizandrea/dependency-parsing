@@ -2,7 +2,7 @@
 
 **Nama / Kelompok:** Kelompok 11 (Keiza dan Almer)  
 **Kelas:** NLP - Probation Lab KC  
-**Tanggal:** 27 Oktober 2022
+**Tanggal:** 27 Oktober 2026
 
 ## A. Ringkasan hasil
 
@@ -35,13 +35,53 @@ Terdapat dua temuan yang terkait dengan paper menurut penemuan kami, yaitu 2.1 d
 
 ## D. Modifikasi kode
 
-**Fitur yang ditambahkan:** ...
+**Fitur yang ditambahkan:** 
 
-**File dan bagian yang diubah:** ...
+Kami memilih opsi pertama pada Task D, yaitu penyorotan khusus untuk *case markers* `di` dan `oleh`. Label relasi `case` di atas panah serta node `di`/`oleh` kini diberi warna hijau sehingga langsung terlihat berbeda dari relasi lain. Ketika node `di` atau `oleh` diklik, *Token inspector* menampilkan teks penjelasan singkat tentang fungsi kata tersebut. Selain itu, kami menambahkan panel "Bonus: di vs. di-" yang menjelaskan mengapa preposisi `di` dan prefiks `di-` dianotasi berbeda (dihubungkan dengan §2.1 *lexicalism* dan §2.5 *case marking*).
 
-**Hasil pengujian:** ...
+**File dan bagian yang diubah:** 
 
-**Screenshot before/after:** (sertakan gambar dengan Markdown jika tersedia)
+1. `app.js`
+   - Fungsi `renderTree(...)`, loop panah: menambahkan variabel `isCase` dan class `case-label` pada label `DEPREL` yang bernilai `case`.
+     ```js
+     const isCase = t.deprel === "case";
+     const labelClasses = [
+       "edge-label",
+       changed ? "changed" : "",
+       isCase ? "case-label" : "",
+     ].filter(Boolean).join(" ");
+     ```
+   - Fungsi `renderTree(...)`, loop node: menambahkan class `case-marker-node` pada node dengan `DEPREL=case` dan `FORM` berupa `di` atau `oleh`.
+     ```js
+     const isCaseMarker =
+       t.deprel === "case" &&
+       ["di", "oleh"].includes(t.form.toLowerCase());
+     ```
+   - Fungsi `inspectToken(...)`: menambahkan paragraf `<p class="case-explanation">` berisi penjelasan berbeda untuk `di` (menandai lokasi) dan `oleh` (menandai pelaku pada kalimat pasif).
+2. `style.css`: menambahkan aturan `.edge-label.case-label` (label hijau), `.node.case-marker-node rect` (kotak node hijau), `.inspector .case-explanation` (kotak penjelasan di inspector), dan `.bonus-explanation` (panel bonus).
+3. `index.html`: menambahkan `<section class="bonus-explanation">` di bawah `#treeGrid`.
+
+**Hasil pengujian:** 
+
+- Halaman dijalankan melalui `http://localhost:8000/` dengan mode "Bandingkan keduanya".
+- Label `case` dan node `di` (kalimat aktif dan pasif) serta `oleh` (kalimat pasif) berubah menjadi hijau. Label `nsubj`, `obj`, `obl`, `nsubj:pass`, dan `obl:agent` tidak terpengaruh dan tetap memakai warna semula (merah untuk relasi yang berubah, abu-abu untuk yang lain).
+- Klik pada node `di` dan `oleh` memunculkan teks penjelasan di *Token inspector*, sedangkan klik pada token lain tidak memunculkannya.
+- Validator tetap lolos sehingga data CoNLL-U tidak terganggu oleh perubahan kode:
+  ```text
+  OK: aktif — 6 syntactic words, root: membaca
+  OK: pasif — 7 syntactic words, root: dibaca
+  Validasi dasar selesai: 2 sentence(s) lolos.
+  ```
+
+**Screenshot before/after:** 
+
+Before (starter, node `di`/`oleh` dan label `case` belum disorot):
+
+![Before](preview.png)
+
+After (label `case` dan node `di`/`oleh` berwarna hijau):
+
+![After](references/image.png)
 
 ## E. Refleksi
 
